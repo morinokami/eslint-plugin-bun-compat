@@ -4,7 +4,7 @@ import { rule as noBunImports } from "./rules/no-bun-imports";
 
 const pkg = JSON.parse(
 	fs.readFileSync(new URL("../package.json", import.meta.url), "utf8"),
-);
+) as typeof import("../package.json");
 
 const plugin = {
 	configs: {
