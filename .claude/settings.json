@@ -31,7 +31,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "bun lint"
+            "command": "bun run lint"
           }
         ]
       }
