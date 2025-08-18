@@ -1,0 +1,55 @@
+{
+	"name": "eslint-plugin-bun-compat",
+	"version": "0.0.1",
+	"description": "Detects and warns about Bun-specific code that is not compatible with Node.js",
+	"keywords": [
+		"eslint",
+		"eslintplugin",
+		"eslint-plugin",
+		"bun"
+	],
+	"author": "Shinya Fujino <shf0811@gmail.com> (https://github.com/morinokami)",
+	"license": "MIT",
+	"packageManager": "pnpm@10.14.0",
+	"type": "module",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/morinokami/eslint-plugin-bun-compat.git",
+		"directory": "packages/eslint-plugin-bun-compat"
+	},
+	"bugs": {
+		"url": "https://github.com/morinokami/eslint-plugin-bun-compat/issues"
+	},
+	"exports": {
+		".": "./dist/index.js"
+	},
+	"main": "./dist/index.js",
+	"module": "./dist/index.js",
+	"types": "./dist/index.d.ts",
+	"files": [
+		"dist"
+	],
+	"scripts": {
+		"build": "tsdown",
+		"knip": "knip",
+		"typecheck": "tsgo --noEmit",
+		"publint": "publint"
+	},
+	"dependencies": {
+		"@typescript-eslint/utils": "8.39.1"
+	},
+	"devDependencies": {
+		"@biomejs/biome": "2.2.0",
+		"@types/node": "24.3.0",
+		"@typescript/native-preview": "7.0.0-dev.20250818.1",
+		"@typescript-eslint/parser": "8.39.1",
+		"@typescript-eslint/rule-tester": "8.39.1",
+		"knip": "5.62.0",
+		"publint": "0.3.12",
+		"tsdown": "0.14.1",
+		"vitest": "3.2.4"
+	},
+	"peerDependencies": {
+		"eslint": ">=9.0.0"
+	}
+}
