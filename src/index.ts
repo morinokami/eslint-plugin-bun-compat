@@ -1,5 +1,7 @@
 import fs from "node:fs";
 
+import { rule as noBunImports } from "./rules/no-bun-imports";
+
 const pkg = JSON.parse(
 	fs.readFileSync(new URL("../package.json", import.meta.url), "utf8"),
 );
@@ -15,7 +17,7 @@ const plugin = {
 		version: pkg.version,
 	},
 	rules: {
-		// TODO: Add rules here
+		"no-bun-imports": noBunImports,
 	},
 };
 
@@ -24,7 +26,7 @@ const recommended = {
 		"bun-compat": plugin,
 	},
 	rules: {
-		// TODO: Add rules here
+		"bun-compat/no-bun-imports": "error",
 	},
 };
 
