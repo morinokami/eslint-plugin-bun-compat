@@ -10,7 +10,6 @@
 	],
 	"author": "Shinya Fujino <shf0811@gmail.com> (https://github.com/morinokami)",
 	"license": "MIT",
-	"packageManager": "pnpm@10.14.0",
 	"type": "module",
 	"repository": {
 		"type": "git",
