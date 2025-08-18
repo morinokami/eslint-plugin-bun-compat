@@ -33,7 +33,9 @@
 		"build": "tsdown",
 		"knip": "knip",
 		"typecheck": "tsgo --noEmit",
-		"publint": "publint"
+		"lint": "biome check --write",
+		"publint": "publint",
+		"test": "vitest"
 	},
 	"dependencies": {
 		"@typescript-eslint/utils": "8.39.1"
