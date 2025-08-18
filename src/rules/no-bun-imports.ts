@@ -4,6 +4,8 @@ const createRule = ESLintUtils.RuleCreator((name) => name);
 
 export const rule = createRule({
 	create(context) {
+		// TODO: Add support for dynamic imports and commonjs requires
+		// TODO: Add a config option to allow specific Bun modules
 		return {
 			ImportDeclaration(node) {
 				if (
