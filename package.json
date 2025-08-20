@@ -1,6 +1,6 @@
 {
 	"name": "eslint-plugin-bun-compat",
-	"version": "0.0.1",
+	"version": "0.0.2",
 	"description": "Detects and warns about Bun-specific code that is not compatible with Node.js",
 	"keywords": [
 		"eslint",
