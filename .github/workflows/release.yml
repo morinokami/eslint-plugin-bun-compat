@@ -5,11 +5,6 @@ on:
     branches:
       - main
 
-permissions:
-  id-token: write
-  contents: write
-  pull-requests: write
-
 jobs:
   release:
     name: Release
@@ -31,3 +26,4 @@ jobs:
           title: "[ci] release"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
