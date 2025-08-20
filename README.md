@@ -26,4 +26,4 @@ export default defineConfig([
 
 ## Rules
 
-- `no-bun-imports`: Disallow bun:* imports
+- `no-bun-imports`: Warns about bun:* imports

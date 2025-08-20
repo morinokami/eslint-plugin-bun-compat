@@ -28,11 +28,12 @@ export const rule = createRule({
 	meta: {
 		type: "suggestion",
 		docs: {
-			description: "Disallow bun:* imports",
+			description: "Avoid bun:* imports",
 		},
 		schema: [],
 		messages: {
-			noBunImports: "Import from {{source}} is not allowed",
+			noBunImports:
+				"Import from {{source}} is Bun-specific and won't work in Node.js",
 		},
 	},
 	defaultOptions: [],
