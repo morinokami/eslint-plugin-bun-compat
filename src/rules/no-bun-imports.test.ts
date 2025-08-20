@@ -15,6 +15,26 @@ ruleTester.run("no-bun-imports", rule, {
 		'import fs from "node:fs";',
 		'import { ESLintUtils } from "@typescript-eslint/utils";',
 		'import * as React from "react";',
+		{
+			code: 'import { expect, test } from "bun:test";',
+			options: [{ allowedModules: ["bun:test"] }],
+		},
+		{
+			code: 'import { sql } from "bun";',
+			options: [{ allowedModules: ["bun"] }],
+		},
+		{
+			code: 'import { Database } from "bun:sqlite";',
+			options: [{ allowedModules: ["bun:sqlite", "bun:test"] }],
+		},
+		{
+			code: 'import { dlopen } from "bun:ffi";',
+			options: [{ allowedModules: ["bun:*"] }],
+		},
+		{
+			code: 'import { expect, test } from "bun:test";',
+			options: [{ allowedModules: ["bun:*"] }],
+		},
 	],
 	invalid: [
 		{
@@ -31,6 +51,21 @@ ruleTester.run("no-bun-imports", rule, {
 		},
 		{
 			code: 'import { expect, test } from "bun:test";',
+			errors: [{ messageId: "noBunImports" }],
+		},
+		{
+			code: 'import { sql } from "bun";',
+			options: [{ allowedModules: ["bun:test"] }],
+			errors: [{ messageId: "noBunImports" }],
+		},
+		{
+			code: 'import { Database } from "bun:sqlite";',
+			options: [{ allowedModules: ["bun:test", "bun"] }],
+			errors: [{ messageId: "noBunImports" }],
+		},
+		{
+			code: 'import { expect, test } from "bun:test";',
+			options: [{ allowedModules: ["bun"] }],
 			errors: [{ messageId: "noBunImports" }],
 		},
 	],

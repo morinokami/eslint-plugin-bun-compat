@@ -26,4 +26,16 @@ export default defineConfig([
 
 ## Rules
 
-- `no-bun-imports`: Warns about bun:* imports
+### `no-bun-imports`
+
+Warns about `bun:*` imports.
+
+**Options:**
+- `allowedModules` (string[]): Allow specific Bun modules. Supports wildcards (`bun:*`).
+
+```js
+// Example: Allow bun:test
+"bun-compat/no-bun-imports": ["error", {
+	allowedModules: ["bun:test"]
+}]
+```
