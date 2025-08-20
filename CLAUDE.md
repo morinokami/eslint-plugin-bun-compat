@@ -15,6 +15,7 @@ bun run build       # Builds with tsdown, outputs to dist/
 # Testing
 bun run test        # Run tests with Vitest
 bun test            # Alternative way to run tests
+bun test src/rules/no-bun-imports.test.ts  # Run a single test file
 
 # Type checking
 bun run typecheck   # Uses tsgo --noEmit for TypeScript type checking
@@ -55,8 +56,8 @@ The project uses Biome for formatting and linting:
 
 ### ESLint Plugin Structure
 The plugin exports a flat config plugin with:
-- Rules exported from `src/index.ts` 
-- Each rule in `src/rules/` directory (e.g., `no-bun-imports.ts`)
+- Main entry (`src/index.ts`): Combines rules and configs, reads package.json metadata dynamically
+- Rules in `src/rules/` directory (e.g., `no-bun-imports.ts`)
 - Recommended config available as `bunCompat.configs.recommended`
 - Rule creation using `@typescript-eslint/utils` ESLintUtils.RuleCreator
 
@@ -65,7 +66,16 @@ The plugin exports a flat config plugin with:
 - Rule testing: Uses `@typescript-eslint/rule-tester` with Vitest integration
 - Test files: `*.test.ts` alongside rule files
 - Testing pattern: RuleTester with valid/invalid test cases
+- Vitest integration requires binding RuleTester methods to vitest functions
 
 ## Current Rules
 
-- **no-bun-imports**: Detects imports from "bun" or "bun:*" modules and warns they are not Node.js compatible
+### no-bun-imports
+Detects imports from "bun" or "bun:*" modules and warns they are not Node.js compatible.
+
+**Configuration Options:**
+- `allowedModules` (string[]): Array of allowed Bun module names. Supports wildcards (e.g., `bun:*`)
+
+**Implementation Notes:**
+- Currently handles ImportDeclaration AST nodes
+- TODO: Add support for dynamic imports and CommonJS requires

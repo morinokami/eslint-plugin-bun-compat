@@ -3,9 +3,9 @@
     "disableBypassPermissionsMode": "disable",
     "defaultMode": "default",
     "allow": [
-      "Bash(pnpm lint)",
-      "Bash(pnpm test:*)",
-      "Bash(pnpm typecheck)",
+      "Bash(bun run lint)",
+      "Bash(bun run test)",
+      "Bash(bun run typecheck)",
       "Bash(rg:*)",
       "Bash(find:*)",
       "Bash(ls:*)",
@@ -14,7 +14,10 @@
       "Bash(mkdir:*)",
       "Bash(cat:*)",
       "WebSearch",
-      "WebFetch(domain:bun.com)"
+      "WebFetch(domain:github.com)",
+      "WebFetch(domain:bun.com)",
+      "WebFetch(domain:eslint.org)",
+      "WebFetch(domain:vitest.dev)"
     ],
     "deny": [
       "Bash(sudo:*)",
