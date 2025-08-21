@@ -35,6 +35,20 @@ ruleTester.run("no-bun-imports", rule, {
 			code: 'import { expect, test } from "bun:test";',
 			options: [{ allowedModules: ["bun:*"] }],
 		},
+		{
+			code: 'const mod = await import("fs");',
+		},
+		{
+			code: 'const mod = require("fs");',
+		},
+		{
+			code: 'await import("bun");',
+			options: [{ allowedModules: ["bun"] }],
+		},
+		{
+			code: 'require("bun:sqlite");',
+			options: [{ allowedModules: ["bun:sqlite"] }],
+		},
 	],
 	invalid: [
 		{
@@ -66,6 +80,32 @@ ruleTester.run("no-bun-imports", rule, {
 		{
 			code: 'import { expect, test } from "bun:test";',
 			options: [{ allowedModules: ["bun"] }],
+			errors: [{ messageId: "noBunImports" }],
+		},
+		{
+			code: 'await import("bun");',
+			errors: [{ messageId: "noBunImports" }],
+		},
+		{
+			code: 'await import("bun:ffi");',
+			errors: [{ messageId: "noBunImports" }],
+		},
+		{
+			code: 'const bun = require("bun");',
+			errors: [{ messageId: "noBunImports" }],
+		},
+		{
+			code: 'const sqlite = require("bun:sqlite");',
+			errors: [{ messageId: "noBunImports" }],
+		},
+		{
+			code: 'await import("bun:test");',
+			options: [{ allowedModules: ["bun"] }],
+			errors: [{ messageId: "noBunImports" }],
+		},
+		{
+			code: 'require("bun");',
+			options: [{ allowedModules: ["bun:test"] }],
 			errors: [{ messageId: "noBunImports" }],
 		},
 	],
