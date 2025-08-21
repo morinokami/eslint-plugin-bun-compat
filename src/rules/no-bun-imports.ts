@@ -11,34 +11,70 @@ type Options = [
 export const rule = createRule<Options, "noBunImports">({
 	create(context, [options]) {
 		const allowedModules = options?.allowedModules ?? [];
-		// TODO: Add support for dynamic imports and commonjs requires
+
+		const shouldReport = (module: string) => {
+			if (module === "bun" || module.startsWith("bun:")) {
+				const isAllowed = allowedModules.some((allowed) => {
+					if (allowed === module) {
+						return true;
+					}
+					if (allowed.endsWith("*")) {
+						const prefix = allowed.slice(0, -1);
+						return module.startsWith(prefix);
+					}
+					return false;
+				});
+				return !isAllowed;
+			}
+			return false;
+		};
+
 		return {
 			ImportDeclaration(node) {
-				const importSource = node.source.value;
-				if (
-					typeof importSource === "string" &&
-					(importSource === "bun" || importSource.startsWith("bun:"))
-				) {
-					const isAllowed = allowedModules.some((allowed) => {
-						if (allowed === importSource) {
-							return true;
-						}
-						if (allowed.endsWith("*")) {
-							const prefix = allowed.slice(0, -1);
-							return importSource.startsWith(prefix);
-						}
-						return false;
+				if (shouldReport(node.source.value)) {
+					context.report({
+						node,
+						messageId: "noBunImports",
+						data: {
+							source: node.source.value,
+						},
 					});
-
-					if (!isAllowed) {
-						context.report({
-							node,
-							messageId: "noBunImports",
-							data: {
-								source: importSource,
-							},
-						});
-					}
+				}
+			},
+			ImportExpression(node) {
+				if (
+					// check if the source is a string literal
+					node.source.type === "Literal" &&
+					typeof node.source.value === "string" &&
+					shouldReport(node.source.value)
+				) {
+					context.report({
+						node,
+						messageId: "noBunImports",
+						data: {
+							source: node.source.value,
+						},
+					});
+				}
+			},
+			CallExpression(node) {
+				if (
+					// check if the callee is a require function
+					node.callee.type === "Identifier" &&
+					node.callee.name === "require" &&
+					// check if the first argument is a string literal
+					node.arguments.length > 0 &&
+					node.arguments[0].type === "Literal" &&
+					typeof node.arguments[0].value === "string" &&
+					shouldReport(node.arguments[0].value)
+				) {
+					context.report({
+						node,
+						messageId: "noBunImports",
+						data: {
+							source: node.arguments[0].value,
+						},
+					});
 				}
 			},
 		};
