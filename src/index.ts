@@ -1,6 +1,7 @@
 import fs from "node:fs";
 import type { TSESLint } from "@typescript-eslint/utils";
 
+import { rule as noBunGlobals } from "./rules/no-bun-globals";
 import { rule as noBunImports } from "./rules/no-bun-imports";
 
 const pkg = JSON.parse(
@@ -14,6 +15,7 @@ const base = {
 	},
 	rules: {
 		"no-bun-imports": noBunImports,
+		"no-bun-globals": noBunGlobals,
 	},
 };
 
@@ -24,6 +26,7 @@ const recommended = {
 	},
 	rules: {
 		"bun-compat/no-bun-imports": "warn",
+		"bun-compat/no-bun-globals": "warn",
 	},
 } satisfies TSESLint.FlatConfig.Config;
 

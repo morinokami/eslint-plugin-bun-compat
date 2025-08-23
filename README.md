@@ -39,3 +39,19 @@ Warns about `bun:*` imports.
 	allowedModules: ["bun:test"]
 }]
 ```
+
+### `no-bun-globals`
+
+Warns about Bun global APIs (`Bun.*` and `$`).
+
+**Options:**
+- `allowedGlobals` (string[]): Allow specific Bun global APIs. Supports wildcards (`Bun.*`).
+
+```js
+// Example: Allow Bun.env
+"bun-compat/no-bun-globals": ["error", {
+	allowedGlobals: ["Bun.env", "Bun.version"]
+}]
+```
+
+**Note:** TypeScript type annotations are automatically allowed (e.g., `let file: Bun.S3File`).
