@@ -1,5 +1,11 @@
 # eslint-plugin-bun-compat
 
+## 0.2.0
+
+### Minor Changes
+
+- [#17](https://github.com/morinokami/eslint-plugin-bun-compat/pull/17) [`25a5cd2`](https://github.com/morinokami/eslint-plugin-bun-compat/commit/25a5cd2e2ac731543757a591afddfde9df5e6044) Thanks [@morinokami](https://github.com/morinokami)! - Add no-bun-globals rule
+
 ## 0.1.0
 
 ### Minor Changes
