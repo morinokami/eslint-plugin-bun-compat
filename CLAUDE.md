@@ -57,8 +57,8 @@ The project uses Biome for formatting and linting:
 ### ESLint Plugin Structure
 The plugin exports a flat config plugin with:
 - Main entry (`src/index.ts`): Combines rules and configs, reads package.json metadata dynamically
-- Rules in `src/rules/` directory (e.g., `no-bun-imports.ts`)
-- Recommended config available as `bunCompat.configs.recommended`
+- Rules in `src/rules/` directory
+- Recommended config available as `bunCompat.configs.recommended` (sets both rules to "warn")
 - Rule creation using `@typescript-eslint/utils` ESLintUtils.RuleCreator
 
 ### Testing
@@ -71,11 +71,29 @@ The plugin exports a flat config plugin with:
 ## Current Rules
 
 ### no-bun-imports
-Detects imports from "bun" or "bun:*" modules and warns they are not Node.js compatible.
+Detects imports from "bun" or "bun:*" modules.
+
+**Detection Patterns:**
+- Static imports: `import { sql } from "bun"`
+- Dynamic imports: `await import("bun:test")`
+- CommonJS requires: `require("bun:sqlite")`
 
 **Configuration Options:**
 - `allowedModules` (string[]): Array of allowed Bun module names. Supports wildcards (e.g., `bun:*`)
 
-**Implementation Notes:**
-- Currently handles ImportDeclaration AST nodes
-- TODO: Add support for dynamic imports and CommonJS requires
+### no-bun-globals
+Detects usage of Bun global APIs.
+
+**Detection Patterns:**
+- Bun object access: `Bun.serve()`, `Bun.env.NODE_ENV`
+- Shell syntax: `$\`echo hello\``
+- Constructor calls: `new Bun.Cookie()`
+- Destructuring: `const { serve } = Bun`
+
+**Configuration Options:**
+- `allowedGlobals` (string[]): Array of allowed Bun global APIs. Supports wildcards (e.g., `Bun.*`)
+
+**Special Handling:**
+- TypeScript type annotations are automatically allowed (e.g., `let file: Bun.S3File`)
+- Locally defined `Bun` variables are not flagged
+- Uses scope analysis to distinguish between global and local variables

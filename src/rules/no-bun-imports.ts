@@ -32,6 +32,7 @@ export const rule = createRule<Options, "noBunImports">({
 		return {
 			ImportDeclaration(node) {
 				if (shouldReport(node.source.value)) {
+					// e.g. import { sql } from "bun";
 					context.report({
 						node,
 						messageId: "noBunImports",
@@ -48,6 +49,7 @@ export const rule = createRule<Options, "noBunImports">({
 					typeof node.source.value === "string" &&
 					shouldReport(node.source.value)
 				) {
+					// e.g. import("bun")
 					context.report({
 						node,
 						messageId: "noBunImports",
@@ -68,6 +70,7 @@ export const rule = createRule<Options, "noBunImports">({
 					typeof node.arguments[0].value === "string" &&
 					shouldReport(node.arguments[0].value)
 				) {
+					// e.g. require("bun")
 					context.report({
 						node,
 						messageId: "noBunImports",
@@ -102,8 +105,7 @@ export const rule = createRule<Options, "noBunImports">({
 			},
 		],
 		messages: {
-			noBunImports:
-				"Import from {{source}} is Bun-specific and won't work in Node.js",
+			noBunImports: "Import from {{source}} is Bun-specific.",
 		},
 	},
 	defaultOptions: [{}],
