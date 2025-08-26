@@ -44,7 +44,7 @@
 		"@changesets/changelog-github": "0.5.1",
 		"@changesets/cli": "2.29.6",
 		"@types/node": "24.3.0",
-		"@typescript/native-preview": "7.0.0-dev.20250820.1",
+		"@typescript/native-preview": "7.0.0-dev.20250825.1",
 		"@typescript-eslint/rule-tester": "8.39.1",
 		"knip": "5.62.0",
 		"pkg-pr-new": "0.0.56",
