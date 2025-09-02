@@ -45,7 +45,7 @@
 		"@changesets/cli": "2.29.6",
 		"@types/node": "24.3.0",
 		"@typescript/native-preview": "7.0.0-dev.20250820.1",
-		"@typescript-eslint/rule-tester": "8.39.1",
+		"@typescript-eslint/rule-tester": "8.41.0",
 		"knip": "5.62.0",
 		"pkg-pr-new": "0.0.56",
 		"publint": "0.3.12",
